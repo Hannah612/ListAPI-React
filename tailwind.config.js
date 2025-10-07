@@ -7,9 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        "black-bg": "#0E2F3F",
-        "dark-blue": "#001C29",
-        "gray-50": "#EFE6E6",
+        "darkblue-bg": "#0E2F3F",
       },
       fontFamily: {
         dmsans: ["DM Sans", "sans-serif"],

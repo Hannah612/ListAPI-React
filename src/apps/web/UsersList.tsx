@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getUsersList, type User } from '../api.ts';
+import { getUsersList } from '../api.ts';
+import type { User } from "../utils.ts";
 
 const UsersList = () => {
   const [showUsersList, setShowUsersList] = useState<User[]>([]);
@@ -7,7 +8,6 @@ const UsersList = () => {
   const [loading, setLoading] = useState<boolean>(false); 
   const [usersClicked, setUsersClicked] = useState<User[]>([]);
 
-  //grab the data from the api (assuming the data will change)
   useEffect(() => {
     async function fetchUsers() {
       try {
@@ -25,9 +25,9 @@ const UsersList = () => {
 
   const toggleUser = (user: User) => {
     setUsersClicked(prev =>
-      prev.some(u => u.email === user.email) //find user via email (assuming email is unique)
-        ? prev.filter(u => u.email !== user.email) //filter out the user if they're already in the selected list (deselect them)
-        : [...prev, user] //add the user to the list of previous users if not found in the selected list (select them)
+      prev.some(u => u.email === user.email)
+        ? prev.filter(u => u.email !== user.email) 
+        : [...prev, user] 
     );
   };
 
@@ -42,7 +42,7 @@ const UsersList = () => {
               type="text"
               placeholder="Search by Name..."
               value={search || ""}
-              onChange={(e) => setSearch(e.target.value)} //this will store the search query
+              onChange={(e) => setSearch(e.target.value)} 
           />
       </div>
 
@@ -51,7 +51,7 @@ const UsersList = () => {
         : <ul className="m-5"> 
           {showUsersList
             .filter(user =>
-              user.name.toLowerCase().includes(search.toLowerCase()) //first filter, then display using map
+              user.name.toLowerCase().includes(search.toLowerCase()) 
             )
             .map(user =>{
               const isSelected = usersClicked.some(u => u.email === user.email);
