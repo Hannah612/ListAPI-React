@@ -6,6 +6,8 @@
   5. to run the code, type "npm run dev" 
   6. ctrl+click the address under Vite beside "Local:" on the terminal (Vite will use a different port if one is taken)
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 **ListAPI-React**
 Frontend Take-Home Challenge: User List
 
@@ -32,3 +34,4 @@ Bonus (Optional):
 Deliverables:
 - A GitHub repo with your code.
 - A short README with setup steps or notes.
+
