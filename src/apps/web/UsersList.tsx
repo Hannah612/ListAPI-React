@@ -4,6 +4,7 @@ import type { User } from "../utils.ts";
 
 const UsersList = () => {
   const [showUsersList, setShowUsersList] = useState<User[]>([]);
+  const [showError, setShowError] = useState<string>();
   const [search, setSearch] = useState<string>(""); //search by user's name
   const [loading, setLoading] = useState<boolean>(false); 
   const [usersClicked, setUsersClicked] = useState<User[]>([]);
@@ -15,7 +16,10 @@ const UsersList = () => {
         const data = await getUsersList();
         setShowUsersList(data);
       } catch (error) {
-        console.error('Error fetching users: ', error);
+        if (error instanceof Error) {
+          console.error(error.message);
+          setShowError(error.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -45,7 +49,7 @@ const UsersList = () => {
               onChange={(e) => setSearch(e.target.value)} 
           />
       </div>
-
+      {showError && <p className="font-bold m-5">{showError}</p>} 
       {loading ? 
         <p className="font-bold m-5">Loading...</p>
         : <ul className="m-5"> 
@@ -53,7 +57,7 @@ const UsersList = () => {
             .filter(user =>
               user.name.toLowerCase().includes(search.toLowerCase()) 
             )
-            .map(user =>{
+            .map(user => {
               const isSelected = usersClicked.some(u => u.email === user.email);
               return (
                 <li key={user.name}>

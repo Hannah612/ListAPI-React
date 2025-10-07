@@ -2,9 +2,9 @@ import type { User } from "./utils";
 
 export async function getUsersList() : Promise<User[]> {
     const usersList = await fetch('https://jsonplaceholder.typicode.com/users');
+    const data = await usersList.json();
 
     if (usersList.ok) {
-        const data = await usersList.json();
         const relevantData : User[] = data.map((user: { name: string; email: string; address: { city: string; }; phone: number }) => ({
             name: user.name,
             email: user.email,
@@ -13,5 +13,5 @@ export async function getUsersList() : Promise<User[]> {
         }));
         return relevantData;
     } 
-    throw new Error ("Something went wrong "+ usersList.json() + ". Please try again.");
+    throw new Error (usersList.status + " - Something went wrong. Please try again.");
 }
